@@ -1,16 +1,35 @@
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import schedule
-import time
+# Add the `src` directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+# Now import the config module
+from utils.config import load_email_config
+import sqlite3  # Import sqlite3 for database operations
+import pandas as pd
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from datetime import datetime
-from data_processing.fetch_nba_data import main as fetch_data
-from utils.config import load_email_config
+
+# Step 1: Fetch Data from the player_fantasy_stats Table
+def fetch_fantasy_stats():
+    db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'player_data.db'))
+    print(f"Using database at: {db_path}")  # Print the absolute path for verification
+    conn = sqlite3.connect(db_path)
+    query = "SELECT * FROM player_fantasy_stats"
+    fantasy_stats_df = pd.read_sql_query(query, conn)
+    conn.close()
+    return fantasy_stats_df
+
+
+# Step 2: Save Data to CSV
+def save_to_csv(df, filename):
+    filepath = os.path.join(os.path.dirname(__file__), filename)
+    df.to_csv(filepath, index=False)
+    return filepath
 
 def send_email(filename):
     # Load email configuration
@@ -20,10 +39,10 @@ def send_email(filename):
     msg = MIMEMultipart()
     msg['From'] = email_config['sender_email']
     msg['To'] = email_config['receiver_email']
-    msg['Subject'] = f"NBA Player Data - {datetime.now().strftime('%Y-%m-%d')}"
+    msg['Subject'] = f"NBA Player Fantasy Stats - {datetime.now().strftime('%Y-%m-%d')}"
 
     # Email body
-    body = "Please find attached the latest NBA player data."
+    body = "Please find attached the latest NBA player fantasy stats."
     msg.attach(MIMEText(body, 'plain'))
 
     # Attach the CSV file
@@ -41,19 +60,16 @@ def send_email(filename):
     except Exception as e:
         print(f"Error sending email: {str(e)}")
 
-def job():
-    print("Fetching NBA data...")
-    filename = fetch_data()
-    if filename:
-        send_email(filename)
-    else:
-        print("No data to send.")
+def main():
+    # Fetch data from the player_fantasy_stats table
+    fantasy_stats_df = fetch_fantasy_stats()
 
-# Schedule the job to run at 1 AM EST
-schedule.every().day.at("01:00").do(job)
+    # Save the DataFrame to a CSV file
+    csv_filename = "fantasy_stats.csv"
+    csv_filepath = save_to_csv(fantasy_stats_df, csv_filename)
+
+    # Send the CSV file via email
+    send_email(csv_filepath)
 
 if __name__ == "__main__":
-    print("Scheduler started. Waiting for 1 AM EST to run the job...")
-    while True:
-        schedule.run_pending()
-        time.sleep(60)  # Check every minute
+    main()
