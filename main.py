@@ -1,34 +1,50 @@
 import sqlite3
+from src.email.email_nba_data import send_email
 
-def explore_database():
-    conn = sqlite3.connect('player_data.db')
+def fetch_scores_from_db(date='APR 02, 2024'):
+    conn = sqlite3.connect('data/player_data.db')
     cursor = conn.cursor()
 
-    # List all tables
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    tables = cursor.fetchall()
+    query = '''
+    SELECT 
+        MATCHUP,
+        SUM(PTS) as total_points,
+        WL
+    FROM 
+        player_game_logs
+    WHERE 
+        GAME_DATE = ?
+    GROUP BY 
+        Game_ID, MATCHUP, WL
+    ORDER BY 
+        MATCHUP;
+    '''
 
-    print("Tables in the database:")
-    for table in tables:
-        table_name = table[0]
-        print(f"\nTable: {table_name}")
-        
-        # Get schema
-        cursor.execute(f"PRAGMA table_info({table_name});")
-        schema = cursor.fetchall()
-        print(f"Schema for {table_name}:")
-        for column in schema:
-            print(column)
-
-        # Check if table has data
-        cursor.execute(f"SELECT COUNT(*) FROM {table_name};")
-        count = cursor.fetchone()[0]
-        if count > 0:
-            print(f"Table {table_name} contains {count} rows.")
-        else:
-            print(f"Table {table_name} is empty.")
+    cursor.execute(query, (date,))
+    games = cursor.fetchall()
     
     conn.close()
 
+    # Generate a report
+    if games:
+        report = f"NBA Scores for {date}:\n\n"
+        game_dict = {}
+        for game in games:
+            matchup, total_points, wl = game
+            if matchup not in game_dict:
+                game_dict[matchup] = {"W": 0, "L": 0}
+            game_dict[matchup][wl] = total_points
+        
+        for matchup, scores in game_dict.items():
+            report += f"{matchup}: {scores['W']} - {scores['L']}\n"
+    else:
+        report = f"No NBA games found for {date}."
+
+    return report
+
 if __name__ == "__main__":
-    explore_database()
+    # Fetch game scores for April 2nd from the database
+    scores_report = fetch_scores_from_db(date='APR 02, 2024')
+    
+    # Send the report via email
+    send_email("NBA Game Scores Report for April 2nd", scores_report)
