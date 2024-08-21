@@ -1,6 +1,7 @@
 # Basketball Reports
 
 ### Repository Structure
+\```
 .
 ├── LICENSE
 ├── README.md
@@ -35,3 +36,5 @@
     ├── test_email_sender.py
     ├── test_models.py
     └── test_performance_analyzer.py
+    
+\```
