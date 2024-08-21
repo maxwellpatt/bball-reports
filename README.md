@@ -1,4 +1,4 @@
-# Basketball Reports
+# Fantasy Basketball Knowledge Vault 
 
 ## Purpose
 The purpose of this project is multifaceted. The initial ideas are to automate a report that is sent each night containing informatino on player performances, as well as developing a dynasty trade value to assess players relative value in this league format. Here's running list of things I want to accomplish:
