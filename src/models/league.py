@@ -27,8 +27,6 @@ class League(BaseModel):
     season_end: date
 
 def create_league_from_data(data: List[Dict[str, Any]]) -> League:
-    # This is where you'll implement the logic to create a League object
-    # from the loaded CSV data. For now, we'll return a placeholder.
     return League(
         id="sample_id",
         name="Sample League",

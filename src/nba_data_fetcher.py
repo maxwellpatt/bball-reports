@@ -42,7 +42,6 @@ def get_all_players_game_logs(player_names, season='2023-24'):
     else:
         return None
 
-# Example usage
 if __name__ == "__main__":
     # Example: Fetch game logs for a single player
     player_name = "LeBron James"

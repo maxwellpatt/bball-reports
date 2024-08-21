@@ -39,5 +39,5 @@ def send_email(subject, body, config_file='config/email_config.yml'):
     print("Email sent successfully!")
 
 if __name__ == "__main__":
-    # Example usage
+
     send_email("Test Subject", "This is a test email.")

@@ -33,16 +33,14 @@ def simple_modify_csv(input_file, output_file):
         print(f"Rows written: {rows_written}")
 
 def main():
-    # Define input and output file paths
+
     current_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(os.path.dirname(current_dir))
     input_file = os.path.join(project_root, 'data', 'raw', 'fantrax_8_9_24.csv')
     output_file = os.path.join(project_root, 'data', 'processed', 'fantrax_8_9_24_modified.csv')
 
-    # Ensure the output directory exists
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
-    # Call the function to modify the CSV
     simple_modify_csv(input_file, output_file)
     print(f"CSV file has been modified and saved to {output_file}")
 

@@ -19,7 +19,6 @@ def load_csv_to_db(csv_file, table_name, db_name='data/player_data.db'):
     print(f"Data from {csv_file} loaded into {table_name} table.")
 
 if __name__ == "__main__":
-    # Example usage
     load_csv_to_db('data/processed/all_player_game_logs_20240820_222851.csv', 'player_game_logs')
     load_csv_to_db('data/processed/fantrax_8_9_24_modified.csv', 'player_fantasy_stats')
     load_csv_to_db('data/all_time_stats/Seasons_Stats.csv', 'all_time_stats')

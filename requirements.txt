@@ -2,4 +2,4 @@ pandas
 nba_api
 schedule
 pyyaml
-sqlite3
+matplotlib

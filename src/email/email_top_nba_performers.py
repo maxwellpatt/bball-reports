@@ -3,7 +3,6 @@ import random
 import sys
 import os
 
-# Add the project's root directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from src.email.email_nba_data import send_email
@@ -57,14 +56,10 @@ if __name__ == "__main__":
         "APR 02, 2024",
         "APR 03, 2024",
         "APR 04, 2024",
-        # Add more dates as needed
     ])
     
-    # Fetch top 25 players
     top_players = fetch_top_fantasy_performers(date)
     
-    # Generate the report
     report = generate_report(top_players, date)
     
-    # Send the email with the report
     send_email(f"Top 25 Fantasy Performances for {date}", report)

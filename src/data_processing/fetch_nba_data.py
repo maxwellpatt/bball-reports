@@ -2,7 +2,6 @@ import requests
 from datetime import datetime
 
 def fetch_nba_scores():
-    # Assuming you have an API endpoint that provides the scores
     url = f"https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/{datetime.now().strftime('%Y-%m-%d')}"
     headers = {"Ocp-Apim-Subscription-Key": "your_api_key_here"}
     response = requests.get(url, headers=headers)
