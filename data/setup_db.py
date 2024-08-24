@@ -22,3 +22,11 @@ if __name__ == "__main__":
     load_csv_to_db('data/processed/all_player_game_logs_20240820_222851.csv', 'player_game_logs')
     load_csv_to_db('data/processed/fantrax_8_9_24_modified.csv', 'player_fantasy_stats')
     load_csv_to_db('data/all_time_stats/Seasons_Stats.csv', 'all_time_stats')
+    load_csv_to_db('data/processed/bball_ref_players_1998_2023.csv', 'players_98_23')
+    load_csv_to_db('data/kaggle_data/csv/player.csv', 'players_kaggle')
+    load_csv_to_db('data/kaggle_data/csv/game_info.csv', 'game_info_kaggle')
+    load_csv_to_db('data/kaggle_data/csv/common_player_info.csv', 'common_player_kaggle')
+    load_csv_to_db('data/kaggle_data/csv/team_details.csv', 'team_details_kaggle')
+    load_csv_to_db('data/kaggle_data/csv/game_summary.csv', 'games_summary_kaggle')
+
+
