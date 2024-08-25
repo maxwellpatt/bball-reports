@@ -10,22 +10,48 @@ The purpose of this project is multifaceted. The initial ideas are to automate a
 .
 ├── LICENSE
 ├── README.md
-├── check_csv.py
 ├── config
 │   ├── config.yaml
 │   └── email_config.yml
 ├── data
-│   ├── all_time_stats
-│   │   ├── Players.csv
-│   │   ├── Seasons_Stats.csv
-│   │   └── player_data.csv
+│   ├── __pycache__
+│   │   └── setup_db.cpython-312.pyc
+│   ├── clean_fantrax.py
+│   ├── databases
+│   │   ├── nba.sqlite
+│   │   └── player_data.db
 │   ├── player_data.db
 │   ├── processed
 │   │   ├── all_player_game_logs_20240820_222851.csv
-│   │   └── fantrax_8_9_24_modified.csv
+│   │   ├── bball_ref_players_1998_2023.csv
+│   │   ├── fantrax_8_9_24_modified.csv
+│   │   └── fpts_since_1998.csv
 │   ├── raw
-│   │   └── fantrax_8_9_24.csv
+│   │   ├── all_time_stats
+│   │   │   ├── Players.csv
+│   │   │   ├── Seasons_Stats.csv
+│   │   │   └── player_data.csv
+│   │   ├── fantrax_8_9_24.csv
+│   │   └── kaggle_data
+│   │       └── csv
+│   │           ├── common_player_info.csv
+│   │           ├── draft_combine_stats.csv
+│   │           ├── draft_history.csv
+│   │           ├── game.csv
+│   │           ├── game_info.csv
+│   │           ├── game_summary.csv
+│   │           ├── inactive_players.csv
+│   │           ├── line_score.csv
+│   │           ├── officials.csv
+│   │           ├── other_stats.csv
+│   │           ├── play_by_play.csv
+│   │           ├── player.csv
+│   │           ├── team.csv
+│   │           ├── team_details.csv
+│   │           ├── team_history.csv
+│   │           └── team_info_common.csv
 │   └── setup_db.py
+├── images
 ├── main.py
 ├── repo_structure.txt
 ├── requirements.txt
@@ -43,19 +69,26 @@ The purpose of this project is multifaceted. The initial ideas are to automate a
 │   ├── data
 │   │   ├── __init__.py
 │   │   ├── data_loader.py
-│   │   └── player_data.db
+│   │   └── play_by_play_analysis.ipynb
 │   ├── data_processing
 │   │   ├── __pycache__
+│   │   │   ├── fetch_nba_data.cpython-38.pyc
+│   │   │   └── modify_fantasy_data.cpython-38.pyc
+│   │   ├── bball_ref_scrape.ipynb
 │   │   ├── fetch_nba_data.py
 │   │   └── modify_fantasy_data.py
-│   ├── dynasty
+│   ├── dynasty_analysis
 │   │   ├── analyze_player_trends.py
 │   │   ├── calculate_fantasy_points.py
+│   │   ├── career_trajectory.py
 │   │   ├── dynasty_trade_value.py
+│   │   ├── expl.ipynb
 │   │   └── kmeans_clustering.py
 │   ├── email
 │   │   ├── __init__.py
 │   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   └── email_nba_data.cpython-38.pyc
 │   │   ├── email_nba_data.py
 │   │   └── email_top_nba_performers.py
 │   ├── models
@@ -68,6 +101,8 @@ The purpose of this project is multifaceted. The initial ideas are to automate a
 │   └── utils
 │       ├── __init__.py
 │       ├── __pycache__
+│       │   ├── __init__.cpython-38.pyc
+│       │   └── config.cpython-38.pyc
 │       └── config.py
 └── tests
     ├── __init__.py
