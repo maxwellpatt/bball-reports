@@ -2,13 +2,16 @@ import smtplib
 import yaml
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+import os
 
 def load_email_config(config_file='config/email_config.yml'):
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
     return config
 
-def send_email(subject, body, config_file='config/email_config.yml'):
+def send_email(subject, body, attachment_path=None, config_file='config/email_config.yml'):
     config = load_email_config(config_file)
     
     msg = MIMEMultipart()
@@ -18,6 +21,18 @@ def send_email(subject, body, config_file='config/email_config.yml'):
     
     # Attach the body with the msg instance
     msg.attach(MIMEText(body, 'plain'))
+    
+    # Add attachment if provided
+    if attachment_path:
+        filename = os.path.basename(attachment_path)
+        attachment = open(attachment_path, "rb")
+        
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(attachment.read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', f"attachment; filename= {filename}")
+        
+        msg.attach(part)
     
     # Use SSL connection
     try:

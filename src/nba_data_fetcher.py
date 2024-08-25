@@ -1,5 +1,8 @@
+# Import necessary modules from nba_api for fetching player data
 from nba_api.stats.endpoints import playergamelog, commonplayerinfo
 from nba_api.stats.static import players
+
+# Import pandas for data manipulation
 import pandas as pd
 
 def get_player_id(player_name):

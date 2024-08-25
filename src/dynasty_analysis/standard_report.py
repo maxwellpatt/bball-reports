@@ -8,6 +8,7 @@ import seaborn as sns
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from src.email.email_nba_data import send_email
+from src.data_processing.get_fantrax_data import get_most_recent_fantrax_data
 
 def get_most_recent_fantrax_data(db_path='data/player_data.db'):
     conn = sqlite3.connect(db_path)

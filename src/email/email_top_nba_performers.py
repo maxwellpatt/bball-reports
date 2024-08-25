@@ -56,6 +56,10 @@ if __name__ == "__main__":
         "APR 02, 2024",
         "APR 03, 2024",
         "APR 04, 2024",
+        "APR 05, 2024",
+        "APR 06, 2024",
+        "APR 07, 2024",
+        "APR 08, 2024",
     ])
     
     top_players = fetch_top_fantasy_performers(date)
